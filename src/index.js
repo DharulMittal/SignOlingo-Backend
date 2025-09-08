@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import auth from "./routes/auth.js";
+import alphabets from "./routes/auth.js";
 
 // Routes import
 // import userRoutes from './routes/user.routes.js';
@@ -33,6 +34,7 @@ app.get('/', (req, res) => {
 // Use routes
 // app.use('/api/users', userRoutes);
 app.use('/api/auth', auth);
+app.use('/api/alphabet', alphabets);
 // Add other routes as needed
 
 // Database connection

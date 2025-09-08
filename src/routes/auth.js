@@ -62,12 +62,4 @@ router.get("/check", checkLogin, (req, res) => {
 
 // router.post('/userinfo', checkLogin, getUSerinfo);
 
-// router.get("/check", checkLogin, (req, res) => {
-//     try {
-//         res.status(200).json(req.user);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// });
-
 export default router;
