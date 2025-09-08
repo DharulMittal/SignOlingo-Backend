@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import auth from "./routes/auth.js";
-import alphabets from "./routes/auth.js";
+import alphabets from "./routes/alphabets.js";
 
 // Routes import
 // import userRoutes from './routes/user.routes.js';
@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-  origin: '*',
+  origin: process.env.ORIGIN,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   credentials: true
 }));
