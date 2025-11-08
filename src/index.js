@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import auth from "./routes/auth.js";
 import alphabets from "./routes/alphabets.js";
+import words from "./routes/words.js";
 
 // Routes import
 // import userRoutes from './routes/user.routes.js';
@@ -35,6 +36,7 @@ app.get('/', (req, res) => {
 // app.use('/api/users', userRoutes);
 app.use('/api/auth', auth);
 app.use('/api/alphabet', alphabets);
+app.use('/api/word', words);
 // Add other routes as needed
 
 // Database connection
