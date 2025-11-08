@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "progress-tracking-api",
+		"name": "SignOLingo Progress Tracking API",
+		"description": "Complete API collection for testing user progress tracking, alphabet learning, word mastery (3-step flow), and achievements",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dashboard & Stats",
+			"item": [
+				{
+					"name": "Get Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/dashboard",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "dashboard"]
+						},
+						"description": "Get user dashboard with overview of all progress including XP, level, streaks, alphabets, words, and achievements"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detailed Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "stats"]
+						},
+						"description": "Get detailed statistics including all alphabet and word progress with population"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alphabet Progress",
+			"item": [
+				{
+					"name": "Get All Alphabet Progress",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/alphabets",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "alphabets"]
+						},
+						"description": "Get all alphabet progress for the user, sorted by alphabet order"
+					},
+					"response": []
+				},
+				{
+					"name": "Start Alphabet Learning",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/alphabets/A/start",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "alphabets", "A", "start"]
+						},
+						"description": "Start learning a specific alphabet (A-Z)"
+					},
+					"response": []
+				},
+				{
+					"name": "Practice Alphabet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"score\": 85\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/progress/alphabets/A/practice",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "alphabets", "A", "practice"]
+						},
+						"description": "Record a practice score for an alphabet (0-100)"
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Alphabet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"finalScore\": 95\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/progress/alphabets/A/complete",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "alphabets", "A", "complete"]
+						},
+						"description": "Complete alphabet learning with final score (awards 5 XP)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Word Progress",
+			"item": [
+				{
+					"name": "Get All Word Progress",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/words?page=1&limit=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "words"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "difficulty",
+									"value": "Very easy",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "mastered",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all word progress with pagination and optional filtering by difficulty and status"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Word with Progress",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/words/{{word_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "words", "{{word_id}}"]
+						},
+						"description": "Get word details along with user's progress"
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Step 1 (Watch & Learn)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/words/{{word_id}}/step1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "words", "{{word_id}}", "step1"]
+						},
+						"description": "Complete Step 1: Watch video and learn word (awards 2 XP)"
+					},
+					"response": []
+				},
+				{
+					"name": "Attempt Step 2 (Type Word)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"typedWord\": \"hello\",\n  \"score\": 75\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/progress/words/{{word_id}}/step2",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "words", "{{word_id}}", "step2"]
+						},
+						"description": "Attempt Step 2: Type the word from video. Score ≥70 completes step and awards 3 XP"
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Step 3 (Perform Sign)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"videoUrl\": \"https://cloudinary.com/user-performance/hello.mp4\",\n  \"score\": 90\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/progress/words/{{word_id}}/step3",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "words", "{{word_id}}", "step3"]
+						},
+						"description": "Complete Step 3: Perform sign language. Score ≥70 masters word and awards 10 XP"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Achievements",
+			"item": [
+				{
+					"name": "Get All Achievements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/achievements",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "achievements"]
+						},
+						"description": "Get all achievements with unlock status (both locked and unlocked)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unlocked Achievements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/achievements/unlocked",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "achievements", "unlocked"]
+						},
+						"description": "Get only unlocked achievements, sorted by unlock date"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Achievement Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/achievements/first_steps",
+							"host": ["{{base_url}}"],
+							"path": ["api", "progress", "achievements", "first_steps"]
+						},
+						"description": "Get details of a specific achievement by ID"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "word_id",
+			"value": "6745e2d7e99c1234567890ab",
+			"type": "string"
+		}
+	]
+}

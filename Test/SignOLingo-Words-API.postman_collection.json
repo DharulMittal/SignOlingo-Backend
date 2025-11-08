@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "signolingo-words-api",
+		"name": "SignOLingo - Words API",
+		"description": "Complete collection for testing SignOLingo Word endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public Routes",
+			"item": [
+				{
+					"name": "Test Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Words (Default)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "all"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Words (Paginated & Sorted)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/all?page=1&limit=10&sort=rank",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "all"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "rank"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Words (Filter by Difficulty)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/all?difficulty=Very easy&sort=rank",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "all"],
+							"query": [
+								{
+									"key": "difficulty",
+									"value": "Very easy"
+								},
+								{
+									"key": "sort",
+									"value": "rank"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Words",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/search?q=book",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "search"],
+							"query": [
+								{
+									"key": "q",
+									"value": "book"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Word by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/book",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "book"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Words by Difficulty - Very Easy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/difficulty/Very easy?page=1&limit=10&sort=rank",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "difficulty", "Very easy"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "rank"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Words by Difficulty - Easy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/difficulty/Easy?sort=rank",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "difficulty", "Easy"],
+							"query": [
+								{
+									"key": "sort",
+									"value": "rank"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Words by Difficulty - Moderate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/difficulty/Moderate?sort=-rank",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "difficulty", "Moderate"],
+							"query": [
+								{
+									"key": "sort",
+									"value": "-rank",
+									"description": "Descending order"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Words by Rank Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/rank/1/50?page=1&limit=20",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "rank", "1", "50"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Routes - Create",
+			"item": [
+				{
+					"name": "Create Single Word",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"word\": \"hello\",\n  \"video\": \"https://example.com/videos/hello.mp4\",\n  \"alternatives\": [\n    \"https://youtube.com/watch?v=abc123\",\n    \"https://aslpro.com/hello.mp4\"\n  ],\n  \"rank\": 5,\n  \"heuristic_score\": 2,\n  \"difficulty_level\": \"Very easy\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Word - Minimal Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"word\": \"thank you\",\n  \"video\": \"https://example.com/videos/thankyou.mp4\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Create Words",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"words\": [\n    {\n      \"word\": \"book\",\n      \"video\": \"http://aslbricks.org/New/ASL-Videos/book.mp4\",\n      \"alternatives\": [\n        \"https://www.youtube.com/watch?v=0UsjUE-TXns\",\n        \"https://www.signingsavvy.com/signs/mp4/14/14326.mp4\"\n      ],\n      \"rank\": 23,\n      \"heuristic_score\": -2,\n      \"difficulty_level\": \"Very easy\"\n    },\n    {\n      \"word\": \"water\",\n      \"video\": \"https://example.com/videos/water.mp4\",\n      \"alternatives\": [\n        \"https://youtube.com/watch?v=xyz789\"\n      ],\n      \"rank\": 15,\n      \"heuristic_score\": 1,\n      \"difficulty_level\": \"Easy\"\n    },\n    {\n      \"word\": \"help\",\n      \"video\": \"https://example.com/videos/help.mp4\",\n      \"rank\": 30,\n      \"heuristic_score\": 0,\n      \"difficulty_level\": \"Moderate\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/bulk",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "bulk"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Routes - Update",
+			"item": [
+				{
+					"name": "Update Word - Full",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"video\": \"https://example.com/videos/hello-updated.mp4\",\n  \"alternatives\": [\n    \"https://youtube.com/watch?v=new123\",\n    \"https://aslpro.com/hello-new.mp4\"\n  ],\n  \"rank\": 10,\n  \"heuristic_score\": 3,\n  \"difficulty_level\": \"Easy\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/hello",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "hello"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Word - Partial",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"difficulty_level\": \"Hard\",\n  \"rank\": 100\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/book",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "book"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Primary Video Only",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"video\": \"https://example.com/videos/hello-new-primary.mp4\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/hello/video",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "hello", "video"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Alternative Video",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"alternative\": \"https://www.handspeak.com/word/hello.mp4\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/hello/alternatives",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "hello", "alternatives"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Routes - Delete",
+			"item": [
+				{
+					"name": "Remove Alternative Video by Index",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/hello/alternatives/0",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "hello", "alternatives", "0"],
+							"description": "Removes the first alternative video (index 0)"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete Word",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/hello",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "hello"],
+							"description": "Sets isActive to false"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permanent Delete Word",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/testword/hard",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "testword", "hard"],
+							"description": "Permanently removes from database"
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Validation Tests",
+			"item": [
+				{
+					"name": "Create Word - Missing Required Fields",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"word\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Word - Invalid Heuristic Score (Too High)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"word\": \"invalid\",\n  \"video\": \"https://example.com/invalid.mp4\",\n  \"heuristic_score\": 10\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Word - Invalid Heuristic Score (Too Low)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"word\": \"invalid2\",\n  \"video\": \"https://example.com/invalid2.mp4\",\n  \"heuristic_score\": -5\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/word/",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Words - Invalid Difficulty Level",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/difficulty/Invalid",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "difficulty", "Invalid"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Without Query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "search"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}
