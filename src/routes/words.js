@@ -5,6 +5,7 @@ import {
     getWordByName,
     getWordsByDifficulty,
     getWordsByRank,
+    getTestWords,
     createWord,
     bulkCreateWords,
     updateWord,
@@ -26,6 +27,8 @@ router.get("/", (req, res) => {
 router.get("/all", getAllWords);
 
 router.get("/search", searchWords);
+
+router.get("/test", getTestWords);
 
 router.get("/difficulty/:level", getWordsByDifficulty);
 

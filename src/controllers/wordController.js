@@ -233,10 +233,59 @@ export const getWordsByRank = async (req, res) => {
     }
 };
 
+// Get test words only
+export const getTestWords = async (req, res) => {
+    try {
+        const { page = 1, limit = 20, sort = 'rank' } = req.query;
+
+        const pageNum = parseInt(page);
+        const limitNum = parseInt(limit);
+        const skip = (pageNum - 1) * limitNum;
+
+        // Build sort
+        const sortOption = {};
+        if (sort === 'rank' || sort === '-rank') {
+            sortOption.rank = sort === '-rank' ? -1 : 1;
+        } else if (sort === 'word' || sort === '-word') {
+            sortOption.word = sort === '-word' ? -1 : 1;
+        } else if (sort === 'difficulty_level' || sort === '-difficulty_level') {
+            sortOption.difficulty_level = sort === '-difficulty_level' ? -1 : 1;
+        } else {
+            sortOption.rank = 1; // default
+        }
+
+        const words = await Word.find({ test: true })
+            .sort(sortOption)
+            .skip(skip)
+            .limit(limitNum);
+
+        const total = await Word.countDocuments({ test: true });
+
+        res.status(200).json({
+            success: true,
+            message: "Test words retrieved successfully",
+            data: words,
+            pagination: {
+                currentPage: pageNum,
+                totalPages: Math.ceil(total / limitNum),
+                totalWords: total,
+                limit: limitNum
+            }
+        });
+
+    } catch (error) {
+        console.error("Get test words error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
 // Create new word
 export const createWord = async (req, res) => {
     try {
-        const { word, video, alternatives, rank, heuristic_score, difficulty_level } = req.body;
+        const { word, video, alternatives, rank, heuristic_score, difficulty_level, test } = req.body;
 
         if (!word || !video) {
             return res.status(400).json({
@@ -268,7 +317,8 @@ export const createWord = async (req, res) => {
             alternatives: alternatives || [],
             rank: rank || 0,
             heuristic_score: heuristic_score || 0,
-            difficulty_level: difficulty_level || 'Moderate'
+            difficulty_level: difficulty_level || 'Moderate',
+            test: test || false
         });
 
         await newWord.save();
@@ -344,7 +394,8 @@ export const bulkCreateWords = async (req, res) => {
                     alternatives: wordData.alternatives || [],
                     rank: wordData.rank || 0,
                     heuristic_score: wordData.heuristic_score || 0,
-                    difficulty_level: wordData.difficulty_level || 'Moderate'
+                    difficulty_level: wordData.difficulty_level || 'Moderate',
+                    test: wordData.test || false
                 });
 
                 await newWord.save();
@@ -383,7 +434,7 @@ export const bulkCreateWords = async (req, res) => {
 export const updateWord = async (req, res) => {
     try {
         const { word } = req.params;
-        const { video, alternatives, rank, heuristic_score, difficulty_level } = req.body;
+        const { video, alternatives, rank, heuristic_score, difficulty_level, test } = req.body;
 
         // Validate heuristic_score if provided
         if (heuristic_score !== undefined && (heuristic_score < -3 || heuristic_score > 5)) {
@@ -399,6 +450,7 @@ export const updateWord = async (req, res) => {
         if (rank !== undefined) updateData.rank = rank;
         if (heuristic_score !== undefined) updateData.heuristic_score = heuristic_score;
         if (difficulty_level !== undefined) updateData.difficulty_level = difficulty_level;
+        if (test !== undefined) updateData.test = test;
 
         const updatedWord = await Word.findOneAndUpdate(
             { word: word.toLowerCase() },

@@ -32,6 +32,10 @@ const wordSchema = new mongoose.Schema(
             enum: ['Very easy', 'Easy', 'Moderate', 'Hard', 'Very hard'],
             default: 'Medium',
         },
+        test: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

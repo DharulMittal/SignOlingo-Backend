@@ -118,6 +118,34 @@
 					"response": []
 				},
 				{
+					"name": "Get Test Words",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/word/test?page=1&limit=20&sort=rank",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "word", "test"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "sort",
+									"value": "rank"
+								}
+							]
+						},
+						"description": "Get only words marked as test words (20 words)"
+					},
+					"response": []
+				},
+				{
 					"name": "Get Words by Difficulty - Very Easy",
 					"request": {
 						"method": "GET",
